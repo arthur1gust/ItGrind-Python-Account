@@ -1,5 +1,6 @@
 from accounts.abstract_account import AbstractAccount
 from accounts.enums import AccountStatus
+from decimal import Decimal
 from accounts.exceptions import (
     AccountClosedError,
     AccountFrozenError,
@@ -9,6 +10,7 @@ from accounts.exceptions import (
 
 
 class BankAccount(AbstractAccount):
+    MAX_WITHDRAWAL = Decimal("100000")
 
     ALLOWED_CURRENCIES = {
         "RUB", "USD", "EUR", "KZT", "CNY"
@@ -64,6 +66,11 @@ class BankAccount(AbstractAccount):
 
         self._check_status()
         amount = self._validate_amount(amount)
+
+        if amount > self.MAX_WITHDRAWAL:
+            raise InvalidOperationError(
+                "Превышен лимит снятия"
+            )
 
         if amount > self._balance:
             raise InsufficientFundsError(
