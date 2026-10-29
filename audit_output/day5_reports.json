@@ -1,0 +1,564 @@
+{
+  "operations": [
+    {
+      "transaction_id": "35a701d9464441fb974b1776ac4027e1",
+      "type": "deposit",
+      "status": "completed",
+      "amount": "500",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "sender_account_id": null,
+      "recipient_account_id": "568153861284",
+      "recipient_details": null,
+      "converted_amount": null,
+      "converted_currency": null,
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": null,
+      "created_at": "2026-10-29T11:30:30.384641",
+      "started_at": "2026-10-26T12:00:00",
+      "finished_at": "2026-10-26T12:00:00",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [],
+      "risk_level": "low",
+      "risk_reasons": []
+    },
+    {
+      "transaction_id": "91f176cd8d6f407abc47999f9b107740",
+      "type": "transfer",
+      "status": "completed",
+      "amount": "500",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "sender_account_id": "568153861284",
+      "recipient_account_id": "147483696680",
+      "recipient_details": null,
+      "converted_amount": "500",
+      "converted_currency": "RUB",
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": null,
+      "created_at": "2026-10-29T11:30:30.384902",
+      "started_at": "2026-10-26T12:00:00",
+      "finished_at": "2026-10-26T12:00:00",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [],
+      "risk_level": "medium",
+      "risk_reasons": [
+        "NEW_RECIPIENT"
+      ]
+    },
+    {
+      "transaction_id": "04fc54ecc2c34065b211fc9e23d0ce77",
+      "type": "transfer",
+      "status": "completed",
+      "amount": "600",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "sender_account_id": "568153861284",
+      "recipient_account_id": "147483696680",
+      "recipient_details": null,
+      "converted_amount": "600",
+      "converted_currency": "RUB",
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": null,
+      "created_at": "2026-10-29T11:30:30.386649",
+      "started_at": "2026-10-26T12:02:00",
+      "finished_at": "2026-10-26T12:02:00",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [],
+      "risk_level": "low",
+      "risk_reasons": []
+    },
+    {
+      "transaction_id": "7069c62a3af54918aca424552821c394",
+      "type": "transfer",
+      "status": "completed",
+      "amount": "12000",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "sender_account_id": "568153861284",
+      "recipient_account_id": "147483696680",
+      "recipient_details": null,
+      "converted_amount": "12000",
+      "converted_currency": "RUB",
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": null,
+      "created_at": "2026-10-29T11:30:30.386657",
+      "started_at": "2026-10-26T12:02:00",
+      "finished_at": "2026-10-26T12:02:00",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [],
+      "risk_level": "medium",
+      "risk_reasons": [
+        "LARGE_AMOUNT"
+      ]
+    },
+    {
+      "transaction_id": "7c3bd297e5e04bc99a409f98afe92940",
+      "type": "transfer",
+      "status": "failed",
+      "amount": "12000",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "sender_account_id": "568153861284",
+      "recipient_account_id": "247140631830",
+      "recipient_details": null,
+      "converted_amount": null,
+      "converted_currency": null,
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": "Операция заблокирована риск-контролем: LARGE_AMOUNT, NEW_RECIPIENT",
+      "created_at": "2026-10-29T11:30:30.387703",
+      "started_at": "2026-10-26T12:04:00",
+      "finished_at": "2026-10-26T12:04:00",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [
+        {
+          "time": "2026-10-26T12:04:00",
+          "attempt": 1,
+          "error_type": "RiskBlockedError",
+          "reason": "Операция заблокирована риск-контролем: LARGE_AMOUNT, NEW_RECIPIENT"
+        }
+      ],
+      "risk_level": "high",
+      "risk_reasons": [
+        "LARGE_AMOUNT",
+        "NEW_RECIPIENT"
+      ]
+    },
+    {
+      "transaction_id": "3f56de8234c64e1cbfb36110c76f618c",
+      "type": "transfer",
+      "status": "failed",
+      "amount": "60000",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "sender_account_id": "568153861284",
+      "recipient_account_id": "147483696680",
+      "recipient_details": null,
+      "converted_amount": null,
+      "converted_currency": null,
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": "Операция заблокирована риск-контролем: VERY_LARGE_AMOUNT",
+      "created_at": "2026-10-29T11:30:30.387710",
+      "started_at": "2026-10-26T12:04:00",
+      "finished_at": "2026-10-26T12:04:00",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [
+        {
+          "time": "2026-10-26T12:04:00",
+          "attempt": 1,
+          "error_type": "RiskBlockedError",
+          "reason": "Операция заблокирована риск-контролем: VERY_LARGE_AMOUNT"
+        }
+      ],
+      "risk_level": "high",
+      "risk_reasons": [
+        "VERY_LARGE_AMOUNT"
+      ]
+    },
+    {
+      "transaction_id": "d9c2333500b749e6a341a26726681826",
+      "type": "transfer",
+      "status": "failed",
+      "amount": "300",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "sender_account_id": "568153861284",
+      "recipient_account_id": "618550478722",
+      "recipient_details": null,
+      "converted_amount": null,
+      "converted_currency": null,
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": "Счёт заморожен",
+      "created_at": "2026-10-29T11:30:30.390235",
+      "started_at": "2026-10-26T12:06:00",
+      "finished_at": "2026-10-26T12:06:00",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [
+        {
+          "time": "2026-10-26T12:06:00",
+          "attempt": 1,
+          "error_type": "AccountFrozenError",
+          "reason": "Счёт заморожен"
+        }
+      ],
+      "risk_level": "medium",
+      "risk_reasons": [
+        "NEW_RECIPIENT"
+      ]
+    },
+    {
+      "transaction_id": "eab60ec158eb47d89e187af02341e0ad",
+      "type": "external_transfer",
+      "status": "completed",
+      "amount": "250",
+      "currency": "RUB",
+      "fee": "2.50",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "sender_account_id": "568153861284",
+      "recipient_account_id": null,
+      "recipient_details": "OTHER-BANK-001",
+      "converted_amount": null,
+      "converted_currency": null,
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": null,
+      "created_at": "2026-10-29T11:30:30.390250",
+      "started_at": "2026-10-26T12:06:00",
+      "finished_at": "2026-10-26T12:06:00",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [],
+      "risk_level": "medium",
+      "risk_reasons": [
+        "NEW_RECIPIENT"
+      ]
+    },
+    {
+      "transaction_id": "0010a2e7eb3e4897beba59de9e292137",
+      "type": "external_transfer",
+      "status": "completed",
+      "amount": "500",
+      "currency": "RUB",
+      "fee": "5.00",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "sender_account_id": "568153861284",
+      "recipient_account_id": null,
+      "recipient_details": "OTHER-BANK-001",
+      "converted_amount": null,
+      "converted_currency": null,
+      "priority": 0,
+      "attempts": 2,
+      "failure_reason": null,
+      "created_at": "2026-10-29T11:30:30.391437",
+      "started_at": "2026-10-26T12:08:30",
+      "finished_at": "2026-10-26T12:08:30",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [
+        {
+          "time": "2026-10-26T12:08:00",
+          "attempt": 1,
+          "error_type": "TemporaryProcessingError",
+          "reason": "Учебный временный сбой шлюза"
+        }
+      ],
+      "risk_level": "low",
+      "risk_reasons": []
+    },
+    {
+      "transaction_id": "7ad5c1506d9b43b198ca61e496b002bf",
+      "type": "transfer",
+      "status": "completed",
+      "amount": "100",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "8fe91f6f037e4a4796edd7a79853bbcf",
+      "sender_account_id": "247140631830",
+      "recipient_account_id": "147483696680",
+      "recipient_details": null,
+      "converted_amount": "100",
+      "converted_currency": "RUB",
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": null,
+      "created_at": "2026-10-29T11:30:30.392604",
+      "started_at": "2026-10-26T12:10:30",
+      "finished_at": "2026-10-26T12:10:30",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [],
+      "risk_level": "medium",
+      "risk_reasons": [
+        "NEW_RECIPIENT"
+      ]
+    },
+    {
+      "transaction_id": "0f2082b760b641da8736cba7b8bef0c2",
+      "type": "transfer",
+      "status": "completed",
+      "amount": "150",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "8fe91f6f037e4a4796edd7a79853bbcf",
+      "sender_account_id": "247140631830",
+      "recipient_account_id": "147483696680",
+      "recipient_details": null,
+      "converted_amount": "150",
+      "converted_currency": "RUB",
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": null,
+      "created_at": "2026-10-29T11:30:30.392611",
+      "started_at": "2026-10-26T12:10:30",
+      "finished_at": "2026-10-26T12:10:30",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [],
+      "risk_level": "low",
+      "risk_reasons": []
+    },
+    {
+      "transaction_id": "ce4819c86c8e4c368e024df03ec9fff7",
+      "type": "transfer",
+      "status": "completed",
+      "amount": "200",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "8fe91f6f037e4a4796edd7a79853bbcf",
+      "sender_account_id": "247140631830",
+      "recipient_account_id": "147483696680",
+      "recipient_details": null,
+      "converted_amount": "200",
+      "converted_currency": "RUB",
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": null,
+      "created_at": "2026-10-29T11:30:30.392616",
+      "started_at": "2026-10-26T12:10:30",
+      "finished_at": "2026-10-26T12:10:30",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [],
+      "risk_level": "low",
+      "risk_reasons": []
+    },
+    {
+      "transaction_id": "4658855d6b504813a2a5273894352bfb",
+      "type": "transfer",
+      "status": "failed",
+      "amount": "250",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "8fe91f6f037e4a4796edd7a79853bbcf",
+      "sender_account_id": "247140631830",
+      "recipient_account_id": "147483696680",
+      "recipient_details": null,
+      "converted_amount": null,
+      "converted_currency": null,
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": "Операция заблокирована риск-контролем: HIGH_FREQUENCY",
+      "created_at": "2026-10-29T11:30:30.392621",
+      "started_at": "2026-10-26T12:10:30",
+      "finished_at": "2026-10-26T12:10:30",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [
+        {
+          "time": "2026-10-26T12:10:30",
+          "attempt": 1,
+          "error_type": "RiskBlockedError",
+          "reason": "Операция заблокирована риск-контролем: HIGH_FREQUENCY"
+        }
+      ],
+      "risk_level": "high",
+      "risk_reasons": [
+        "HIGH_FREQUENCY"
+      ]
+    },
+    {
+      "transaction_id": "063b89f2d3dc465fbbd18962822cdabb",
+      "type": "deposit",
+      "status": "failed",
+      "amount": "100",
+      "currency": "RUB",
+      "fee": "0.00",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "sender_account_id": null,
+      "recipient_account_id": "568153861284",
+      "recipient_details": null,
+      "converted_amount": null,
+      "converted_currency": null,
+      "priority": 0,
+      "attempts": 1,
+      "failure_reason": "Операция заблокирована риск-контролем: NIGHT_OPERATION",
+      "created_at": "2026-10-29T11:30:30.394697",
+      "started_at": "2026-10-27T02:00:00",
+      "finished_at": "2026-10-27T02:00:00",
+      "execute_at": null,
+      "next_attempt_at": null,
+      "error_log": [
+        {
+          "time": "2026-10-27T02:00:00",
+          "attempt": 1,
+          "error_type": "RiskBlockedError",
+          "reason": "Операция заблокирована риск-контролем: NIGHT_OPERATION"
+        }
+      ],
+      "risk_level": "high",
+      "risk_reasons": [
+        "NIGHT_OPERATION"
+      ]
+    }
+  ],
+  "suspicious_operations": [
+    {
+      "timestamp": "2026-10-26T12:00:00",
+      "event_type": "RISK_ASSESSED",
+      "level": "medium",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "transaction_id": "91f176cd8d6f407abc47999f9b107740",
+      "details": "NEW_RECIPIENT",
+      "error_type": null
+    },
+    {
+      "timestamp": "2026-10-26T12:02:00",
+      "event_type": "RISK_ASSESSED",
+      "level": "medium",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "transaction_id": "7069c62a3af54918aca424552821c394",
+      "details": "LARGE_AMOUNT",
+      "error_type": null
+    },
+    {
+      "timestamp": "2026-10-26T12:04:00",
+      "event_type": "RISK_ASSESSED",
+      "level": "high",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "transaction_id": "7c3bd297e5e04bc99a409f98afe92940",
+      "details": "LARGE_AMOUNT,NEW_RECIPIENT",
+      "error_type": null
+    },
+    {
+      "timestamp": "2026-10-26T12:04:00",
+      "event_type": "RISK_ASSESSED",
+      "level": "high",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "transaction_id": "3f56de8234c64e1cbfb36110c76f618c",
+      "details": "VERY_LARGE_AMOUNT",
+      "error_type": null
+    },
+    {
+      "timestamp": "2026-10-26T12:06:00",
+      "event_type": "RISK_ASSESSED",
+      "level": "medium",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "transaction_id": "d9c2333500b749e6a341a26726681826",
+      "details": "NEW_RECIPIENT",
+      "error_type": null
+    },
+    {
+      "timestamp": "2026-10-26T12:06:00",
+      "event_type": "RISK_ASSESSED",
+      "level": "medium",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "transaction_id": "eab60ec158eb47d89e187af02341e0ad",
+      "details": "NEW_RECIPIENT",
+      "error_type": null
+    },
+    {
+      "timestamp": "2026-10-26T12:10:30",
+      "event_type": "RISK_ASSESSED",
+      "level": "medium",
+      "client_id": "8fe91f6f037e4a4796edd7a79853bbcf",
+      "transaction_id": "7ad5c1506d9b43b198ca61e496b002bf",
+      "details": "NEW_RECIPIENT",
+      "error_type": null
+    },
+    {
+      "timestamp": "2026-10-26T12:10:30",
+      "event_type": "RISK_ASSESSED",
+      "level": "high",
+      "client_id": "8fe91f6f037e4a4796edd7a79853bbcf",
+      "transaction_id": "4658855d6b504813a2a5273894352bfb",
+      "details": "HIGH_FREQUENCY",
+      "error_type": null
+    },
+    {
+      "timestamp": "2026-10-27T02:00:00",
+      "event_type": "RISK_ASSESSED",
+      "level": "high",
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "transaction_id": "063b89f2d3dc465fbbd18962822cdabb",
+      "details": "NIGHT_OPERATION",
+      "error_type": null
+    }
+  ],
+  "client_profiles": {
+    "Иван": {
+      "client_id": "66fb9938b4b5406d9ced9894cb525ad2",
+      "risk_level": "high",
+      "transactions_assessed": 10,
+      "by_level": {
+        "low": 3,
+        "medium": 4,
+        "high": 3
+      },
+      "triggers": [
+        "LARGE_AMOUNT",
+        "NEW_RECIPIENT",
+        "NIGHT_OPERATION",
+        "VERY_LARGE_AMOUNT"
+      ],
+      "known_recipients": 2,
+      "blocked_operations": 3,
+      "failed_operations": 1
+    },
+    "Анна": {
+      "client_id": "d02cd279b2434aa384604b4432de1abe",
+      "risk_level": "low",
+      "transactions_assessed": 0,
+      "by_level": {
+        "low": 0,
+        "medium": 0,
+        "high": 0
+      },
+      "triggers": [],
+      "known_recipients": 0,
+      "blocked_operations": 0,
+      "failed_operations": 0
+    },
+    "Павел": {
+      "client_id": "8fe91f6f037e4a4796edd7a79853bbcf",
+      "risk_level": "high",
+      "transactions_assessed": 4,
+      "by_level": {
+        "low": 2,
+        "medium": 1,
+        "high": 1
+      },
+      "triggers": [
+        "HIGH_FREQUENCY",
+        "NEW_RECIPIENT"
+      ],
+      "known_recipients": 1,
+      "blocked_operations": 1,
+      "failed_operations": 0
+    }
+  },
+  "error_statistics": {
+    "total_error_events": 6,
+    "failed": 1,
+    "retries": 1,
+    "blocked": 4,
+    "by_error_type": {
+      "RiskBlockedError": 4,
+      "AccountFrozenError": 1,
+      "TemporaryProcessingError": 1
+    }
+  },
+  "balances": {
+    "RUB": "109842.50"
+  }
+}

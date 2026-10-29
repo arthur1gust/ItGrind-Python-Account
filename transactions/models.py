@@ -95,6 +95,9 @@ class Transaction:
         self.finished_at: datetime | None = None
         self.next_attempt_at: datetime | None = None
         self.error_log: list[dict] = []
+        # День 5: заполняются только если подключён RiskAnalyzer.
+        self.risk_level: str | None = None
+        self.risk_reasons: list[str] = []
 
     def as_dict(self) -> dict:
         """Без изменяемых внутренних объектов и с удобными значениями для вывода."""
@@ -120,4 +123,6 @@ class Transaction:
             "execute_at": self.execute_at.isoformat() if self.execute_at else None,
             "next_attempt_at": self.next_attempt_at.isoformat() if self.next_attempt_at else None,
             "error_log": [entry.copy() for entry in self.error_log],
+            "risk_level": self.risk_level,
+            "risk_reasons": self.risk_reasons.copy(),
         }

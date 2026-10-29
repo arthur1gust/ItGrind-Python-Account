@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from decimal import Decimal, ROUND_HALF_UP
-from typing import Callable
+from typing import Callable, TYPE_CHECKING
 
 from accounts.enums import AccountStatus
 from accounts.exceptions import InsufficientFundsError, InvalidOperationError
@@ -8,7 +8,10 @@ from accounts.premium_account import PremiumAccount
 from accounts.savings_account import SavingsAccount
 from bank_system import Bank
 
-from .exceptions import TemporaryProcessingError, TransactionProcessingError
+from .exceptions import TemporaryProcessingError, TransactionProcessingError, RiskBlockedError
+
+if TYPE_CHECKING:
+    from audit import AuditLog, RiskAnalyzer
 from .models import Transaction, TransactionStatus, TransactionType
 from .queue import TransactionQueue
 
@@ -36,6 +39,8 @@ class TransactionProcessor:
         retry_delay_seconds: int = 30,
         gateway: Callable[[Transaction], None] | None = None,
         now_provider: Callable[[], datetime] | None = None,
+        audit_log: "AuditLog | None" = None,
+        risk_analyzer: "RiskAnalyzer | None" = None,
     ):
         if not isinstance(bank, Bank):
             raise TypeError("Требуется экземпляр Bank из Дня 3")
@@ -46,6 +51,10 @@ class TransactionProcessor:
         if gateway is not None and not callable(gateway):
             raise TypeError("gateway должен быть функцией")
         self.gateway = gateway
+        # День 5: опциональная интеграция. Старые сценарии Дня 4 не меняются,
+        # пока risk_analyzer не передан. В demo_day5 активируем оба модуля.
+        self.audit_log = audit_log
+        self.risk_analyzer = risk_analyzer
         self.external_fee_rate = self._valid_rate(external_fee_rate, allow_zero=True)
         self.external_min_fee = money(self._valid_rate(external_min_fee, allow_zero=True))
         if type(retry_delay_seconds) is not int or retry_delay_seconds < 0:
@@ -143,9 +152,25 @@ class TransactionProcessor:
 
         raise TransactionProcessingError("Неизвестный тип транзакции")
 
+    def _audit(self, event_type: str, level, tx: Transaction, now: datetime,
+               details: str = "", error_type: str | None = None) -> None:
+        """Журнал не должен ошибкой файлового ввода-вывода менять статус платежа.
+
+        AuditLog.log() хранит событие в RAM, а проблемы записи на диск
+        отражает в persistence_errors. Секретные данные сюда не передаём.
+        """
+        if self.audit_log is not None:
+            self.audit_log.log(
+                event_type=event_type, level=level,
+                client_id=tx.client_id, transaction_id=tx.transaction_id,
+                details=details, error_type=error_type, now=now,
+            )
+
     def process(self, tx: Transaction, queue: TransactionQueue | None = None,
                 now: datetime | None = None) -> Transaction:
-        """Одна попытка. При временном сбое перенос в очередь с backoff."""
+        """Одна попытка: День 5 проверяет риск ДО любого изменения балансов."""
+        from audit import AuditLevel  # локальный импорт исключает циклическую загрузку модулей
+
         now = now or self._now()
         if tx.status not in (TransactionStatus.PENDING, TransactionStatus.RETRY_PENDING):
             raise ValueError("Эта транзакция уже обрабатывалась или завершена")
@@ -159,6 +184,17 @@ class TransactionProcessor:
         tx.started_at = now
         tx.failure_reason = None
         try:
+            if self.risk_analyzer is not None:
+                assessment = self.risk_analyzer.analyze(tx, now)
+                tx.risk_level = assessment.level.value
+                tx.risk_reasons = list(assessment.reasons)
+                self.risk_analyzer.register_assessment(tx, assessment, now)
+                self._audit("RISK_ASSESSED", assessment.level, tx, now,
+                            details=",".join(assessment.reasons) or "NO_RISK_FLAGS")
+                if assessment.level == AuditLevel.HIGH:
+                    raise RiskBlockedError(
+                        "Операция заблокирована риск-контролем: " + ", ".join(assessment.reasons)
+                    )
             self._execute(tx)
         except Exception as error:
             # Явно фиксируем неуспех; повторяем ТОЛЬКО временные ошибки.
@@ -170,22 +206,37 @@ class TransactionProcessor:
                 "reason": tx.failure_reason,
             })
             self.bank._flag_suspicious(tx.client_id, "TRANSACTION_ERROR", tx.transaction_id)
-            if isinstance(error, TemporaryProcessingError) and tx.attempts < tx.max_attempts:
+            if isinstance(error, RiskBlockedError):
+                self.bank._flag_suspicious(tx.client_id, "RISK_BLOCKED", tx.transaction_id)
+                self._audit("TRANSACTION_BLOCKED", AuditLevel.HIGH, tx, now,
+                            details=",".join(tx.risk_reasons), error_type=type(error).__name__)
+                tx.status = TransactionStatus.FAILED
+                tx.finished_at = now
+                tx.next_attempt_at = None
+            elif isinstance(error, TemporaryProcessingError) and tx.attempts < tx.max_attempts:
                 tx.status = TransactionStatus.RETRY_PENDING
                 tx.next_attempt_at = now + timedelta(
                     seconds=self.retry_delay_seconds * (2 ** (tx.attempts - 1))
                 )
+                self._audit("TRANSACTION_RETRY", AuditLevel.MEDIUM, tx, now,
+                            details=tx.failure_reason, error_type=type(error).__name__)
                 if queue is not None:
                     queue.add(tx)
             else:
                 tx.status = TransactionStatus.FAILED
                 tx.finished_at = now
                 tx.next_attempt_at = None
+                self._audit("TRANSACTION_FAILED", AuditLevel.MEDIUM, tx, now,
+                            details=tx.failure_reason, error_type=type(error).__name__)
         else:
             tx.status = TransactionStatus.COMPLETED
             tx.finished_at = now
             tx.next_attempt_at = None
             tx.failure_reason = None
+            if self.risk_analyzer is not None:
+                self.risk_analyzer.register_success(tx)
+            self._audit("TRANSACTION_COMPLETED", AuditLevel.LOW, tx, now,
+                        details=f"{tx.type.value}:{tx.amount}:{tx.currency}")
         return tx
 
     def process_next(self, queue: TransactionQueue, now: datetime | None = None) -> Transaction | None:
